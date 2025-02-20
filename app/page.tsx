@@ -5,7 +5,6 @@
 import Container from '@mui/material/Container';
 import Loading from "./Components/Loading";
 import { useState, useEffect, useRef, SetStateAction, useLayoutEffect } from "react";
-// import { useElementSize } from "usehooks-ts";
 import {
   type MRT_Row,
   type MRT_ColumnDef,
@@ -48,17 +47,24 @@ const columns: MRT_ColumnDef<Data>[] = [
 
 export default function Home() {
 
+  /*
+  *** All state
+  */
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data[]>([]);
-  const cookies: Cookies = useCookies();
   const [rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({});
   const [loadingTable, setLoadingTable] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [token, setToken] = useState<string>('');
   const [scrollRequest, setScrollRequest] = useState<number | null>(0);
-
   const [blockToDoubleFetch, setBlockToDoubleFetch] = useState<boolean>(false);
 
+  const cookies: Cookies = useCookies();
+  const ref = useRef<HTMLDivElement>(null);
+
+  /*
+  *** All functions
+  */
   const sortInAscendingOrder = async () => {
     setData([...data.sort((x, y) => x.id - y.id)]);
 
@@ -179,20 +185,6 @@ export default function Home() {
     */
   }
 
-  useEffect(() => {
-
-    setSelected(rowSelection)
-
-  }, [rowSelection]);
-
-  useEffect(() => {
-
-    const token: string | undefined = cookies.get('token');
-
-    token?.length ? getData(token) : getTokenData();
-
-  }, []);
-
   const fetchOffsetData = async (): Promise<void> => {
 
     if (blockToDoubleFetch) return;
@@ -223,13 +215,25 @@ export default function Home() {
   };
 
   useEffect(() => {
+
+    setSelected(rowSelection)
+
+  }, [rowSelection]);
+
+  useEffect(() => {
+
+    const token: string | undefined = cookies.get('token');
+
+    token?.length ? getData(token) : getTokenData();
+
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => window.removeEventListener('scroll', handleScroll);
 
   });
-
-  const ref = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     if (ref.current) {
@@ -350,9 +354,7 @@ export default function Home() {
           </Box>
         </Box>
 
-
       </div>}
-
 
     </>
   );
