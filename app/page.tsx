@@ -152,7 +152,7 @@ export default function Home() {
 
       const dataSelected: SetStateAction<MRT_RowSelectionState> = {}
 
-      for (let i of Object.keys(data.profile.selected)) {
+      for (const i of Object.keys(data.profile.selected)) {
         dataSelected[i] = true
       }
       setRowSelection(dataSelected)
@@ -169,6 +169,8 @@ export default function Home() {
   const moveActions = async (draggingRow: number, hoveredRow: number) => {
 
     const move: Fetch_data = await Fetch.request('/api/v1/set_move', { token: token, draggingRow: draggingRow, hoveredRow: hoveredRow });
+
+    console.log(move);
 
     // some kind of action
   }
@@ -227,9 +229,10 @@ export default function Home() {
 
     const token: string | undefined = cookies.get('token');
 
-    token?.length ? getData(token) : getTokenData();
+    if (token) getData(token);
+    else getTokenData();
 
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });

@@ -12,7 +12,7 @@ import { Fetch } from '@/app/Utils/Fetch';
 /*
 *** Main 
 */
-import { Elysia, t } from 'elysia'
+import { Elysia } from 'elysia'
 
 const app = new Elysia({ prefix: '/api/v1' })
     /*
