@@ -49,7 +49,7 @@ export interface Move {
 
 export interface Search {
     token: string
-    query: string
+    query: number
 }
 
 export interface OffsetData {

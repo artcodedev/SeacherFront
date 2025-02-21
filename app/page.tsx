@@ -91,17 +91,22 @@ export default function Home() {
 
     const search: string = e.target.value;
 
-    setSearchQuery(search)
+    setSearchQuery(search);
 
-    setLoadingTable(true);
+    const isNumber: boolean = /\d/.test(search);
 
-    setBlockToDoubleFetch(false);
+    if (isNumber || search.length == 0) {
 
-    const data: Fetch_data = await Fetch.request('/api/v1/get_search', { token: token, query: search.length ? search : '' });
+      setLoadingTable(true);
 
-    if (data) {
-      setData(data.data);
-      setLoadingTable(false);
+      setBlockToDoubleFetch(false);
+
+      const data: Fetch_data = await Fetch.request('/api/v1/get_search', { token: token, query: isNumber ? parseInt(search) : null });
+
+      if (data) {
+        setData(data.data);
+        setLoadingTable(false);
+      }
     }
 
     /*
@@ -187,10 +192,10 @@ export default function Home() {
 
     if (blockToDoubleFetch) return;
 
-    const data_offset: {data: Data[]} = await Fetch.request('/api/v1/get_offset_data', { token: token, offset: data.length });
+    const data_offset: { data: Data[] } = await Fetch.request('/api/v1/get_offset_data', { token: token, offset: data.length });
 
     if (data_offset) {
-      if (data_offset.data != null && data_offset.data.length ) {
+      if (data_offset.data != null && data_offset.data.length) {
 
         setData(data.concat(data_offset.data));
         setBlockToDoubleFetch(false);
@@ -332,7 +337,7 @@ export default function Home() {
 
         <Box sx={{ margin: '20px 20px' }}>
           <Box sx={{ display: 'flex' }}>
-            <TextField id="outlined-basic" label="Search name" variant="outlined" value={searchQuery} onChange={search_fetch} />
+            <TextField id="outlined-basic" label="Search id" variant="outlined" value={searchQuery} onChange={search_fetch} />
             <Box sx={{ marginLeft: '20px' }}>
 
               <IconButton aria-label="filter" size="large" onClick={sortInDescendingOrder}>
