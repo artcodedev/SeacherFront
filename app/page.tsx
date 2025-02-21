@@ -165,8 +165,6 @@ export default function Home() {
 
     const move: Fetch_data = await Fetch.request('/api/v1/set_move', { token: token, draggingRow: draggingRow, hoveredRow: hoveredRow });
 
-    console.log(move);
-
     // some kind of action
   }
 

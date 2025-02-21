@@ -1,0 +1,16 @@
+
+
+
+
+Вот тестовое задание сделал вчера.
+
+Репозитории с кодом:
+Frontend https://github.com/artcodedev/SeacherFront
+Backend https://github.com/artcodedev/SeacherBack
+
+https://xg39zy-3000.csb.app/ FRONEND (если вдруг будет не доступно написать мне)
+
+По backend, контроллеры и роуты сделал в одном файле намерено для удобства с глобальным шранилищем.
+
+На реальном бы проекте все разносил бы по обдельным директориям.
+Вот пример https://github.com/artcodedev/api.whalepay/tree/master/src

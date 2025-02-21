@@ -30,7 +30,29 @@ export interface TokenData {
 export interface IMap<T> {
     [index: number]: T;
 } 
+
 export interface Selected {
     token: string
     selected: IMap<boolean>
+}
+
+export interface Sorted {
+    token: string
+    sorted: number
+}
+
+export interface Move {
+    token: string
+    draggingRow: number
+    hoveredRow: number
+}
+
+export interface Search {
+    token: string
+    query: string
+}
+
+export interface OffsetData {
+    token: string
+    offset: number 
 }
